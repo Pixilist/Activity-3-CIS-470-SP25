@@ -26,11 +26,11 @@ describe('classifyTriangle: Required input conditions - See readme for more deta
   });
 
   test('BVT: Just below minimum input', () => {
-    expect(classifyTriangle(0, 1, 1)).toBe('Error: Input conditions C1, C2, or C3 failed.');
+    expect(classifyTriangle(0.99, 1, 1)).toBe('Error: Input conditions C1, C2, or C3 failed.');
   });
 
   test('BVT: Just above maximum input', () => {
-    expect(classifyTriangle(201, 200, 200)).toBe('Error: Input conditions C1, C2, or C3 failed.');
+    expect(classifyTriangle(200.01, 200, 200)).toBe('Error: Input conditions C1, C2, or C3 failed.');
   });
 
   // Weak Normal Equivalence Class Testing (ECP)
@@ -48,10 +48,6 @@ describe('classifyTriangle: Required input conditions - See readme for more deta
 
   test('ECP: Invalid input (negative number)', () => {
     expect(classifyTriangle(-1, 4, 5)).toBe('Error: Input conditions C1, C2, or C3 failed.');
-  });
-
-  test('ECP: Invalid input (non-integer)', () => {
-    expect(classifyTriangle(3.5, 4, 5)).toBe('Error: Input conditions C1, C2, or C3 failed.');
   });
 
   // Additional test cases
@@ -93,5 +89,22 @@ describe('classifyTriangle: Required input conditions - See readme for more deta
 
   test('BVT: Just within valid range for all sides', () => {
     expect(classifyTriangle(2, 2, 2)).toBe('Equilateral');
+  });
+
+  // New tests with float values
+  test('ECP: Valid Scalene triangle with float values', () => {
+    expect(classifyTriangle(3.5, 4.5, 5.5)).toBe('Scalene');
+  });
+
+  test('ECP: Valid Isosceles triangle with float values', () => {
+    expect(classifyTriangle(5.5, 5.5, 7)).toBe('Isosceles');
+  });
+
+  test('BVT: Float values just within valid range', () => {
+    expect(classifyTriangle(1.01, 1.01, 1.01)).toBe('Equilateral');
+  });
+
+  test('BVT: Float values at maximum valid range', () => {
+    expect(classifyTriangle(199.99, 199.99, 199.99)).toBe('Equilateral');
   });
 });
